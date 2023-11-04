@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
-function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual,setRondaActual }) {
+function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual,setRondaActual,setPuntaje2, nombreJugador2, puntaje2, setTurno, turno}) {
     const [animalObjetivo, setAnimalObjetivo] = useState('');
     const [opciones, setOpciones] = useState([]);
     const [esCorrecto, setEsCorrecto] = useState(null);
     const [rondasTotales, setRondasTotales] = useState(Math.floor(Math.random() * 6) + 5);
     const [puedeHacerClic, setPuedeHacerClic] = useState(true);
 
+
    
 
     const obtenerAnimalAleatorio = () => {
-        const animales = ['gato', 'perro', 'vaca', 'leon', 'jirafa', 'cebra'];
+        const animales = ['Cat', 'Dog', 'Cow', 'Lion', 'Giraffe', 'Zebra', 'Monkey', 'Llama', 'Dove'];
         const indiceAleatorio = Math.floor(Math.random() * animales.length);
         return animales[indiceAleatorio];
     };
@@ -34,8 +35,15 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual,set
 
     const verificarRespuesta = (animalSeleccionado) => {
         if (animalSeleccionado === animalObjetivo) {
+                if (turno === 1) {
+                    setPuntaje(puntaje+1);
+                    
+                } else {
+                    setPuntaje2(puntaje2+1);
+                    
+                }
             setEsCorrecto(true);
-            setPuntaje(puntaje + 1);
+
         } else {
             setEsCorrecto(false);
         }
@@ -45,11 +53,18 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual,set
     const siguienteRonda = () => {
         if (rondaActual < rondasTotales) {
             setRondaActual(rondaActual + 1);
+
+            if (turno === 1) {
+                setTurno(2);    
+            } else {
+                setTurno(1);
+            }
+            
             setEsCorrecto(null);
             setPuedeHacerClic(true);
             obtenerOpcionesAleatorias();
         } else {
-            alTerminar(puntaje);
+            alTerminar(puntaje, puntaje2);
         }
     };
 
@@ -59,10 +74,17 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual,set
         obtenerOpcionesAleatorias();
     }, []);
 
+    let jugador;
+    if (turno === 1) {
+    jugador = nombreJugador;        
+    } else {
+        jugador = nombreJugador2;        
+    }
+
     return (
         <div>
-            <h1>{nombreJugador}, ¿Cuál es este animal?</h1>
-            <p>Ronda actual: {rondaActual}</p>
+            <h1>{jugador}, What animal is this??</h1>
+            <p>Round: {rondaActual}</p>
             <img src={`img/${animalObjetivo}.png`} alt={animalObjetivo} />
             <div>
                 {opciones.map((animal) => (
@@ -75,9 +97,9 @@ function Juego({ nombreJugador, puntaje, setPuntaje, alTerminar, rondaActual,set
                     </button>
                 ))}
             </div>
-            {esCorrecto === true && <p>¡Correcto!</p>}
-            {esCorrecto === false && <p>¡Incorrecto!</p>}
-            <button onClick={siguienteRonda}>Siguiente</button>
+            {esCorrecto === true && <p>Great job! Keep it up</p>}
+            {esCorrecto === false && <p> That's not it, but don't give up, you can do it!</p>}
+            <button onClick={siguienteRonda}>Next</button>
         </div>
     );
 }

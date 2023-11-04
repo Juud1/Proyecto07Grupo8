@@ -9,15 +9,26 @@ function Inicio() {
     const [mostrarFelicitaciones, setMostrarFelicitaciones] = useState(false);
     const [rondaActual, setRondaActual] = useState(1);
 
-    const manejarClickJugar = (nombre) => {
+    const [nombreJugador2, setNombreJugador2] = useState('');
+    const [puntaje2, setPuntaje2] = useState(0);
+    const [turno, setTurno] = useState(1);
+
+
+    const manejarClickJugar = (nombre, nombre2) => {
         setNombreJugador(nombre);
+        setNombreJugador2(nombre2);
         setMostrarJuego(true);
+        setPuntaje2(0);
         setPuntaje(0);
         setMostrarFelicitaciones(false);
     };
 
     const alTerminar = (puntaje) => {
-        setPuntaje(puntaje);
+        if (turno === 1) {
+            setPuntaje(puntaje);
+        } else {
+            setPuntaje2(puntaje2);
+        }
         setMostrarJuego(false);
         setMostrarFelicitaciones(true);
     };
@@ -25,25 +36,37 @@ function Inicio() {
     if (!mostrarJuego && !mostrarFelicitaciones) {
         return (
             <div>
-                <h1>Ingresa tu nombre</h1>
+                <h1>What's your name, Player 1?</h1>
                 <input
                     type="text"
-                    placeholder="Nombre del niño"
+                    placeholder="Player 1"
                     onChange={(e) => setNombreJugador(e.target.value)}
                 />
-                <button onClick={() => manejarClickJugar(nombreJugador)}>Jugar</button>
-            </div>
+            
+            <h1>What's your name, Player 2?</h1>
+            <input
+                type="text"
+                placeholder="Player 2"
+                onChange={(e) => setNombreJugador2(e.target.value)}
+            />
+            <button onClick={() => manejarClickJugar(nombreJugador, nombreJugador2)}>Play</button>
+        </div>
         );
     } else if (mostrarJuego) {
         return (
             <div>
                 <Juego
                     nombreJugador={nombreJugador}
+                    nombreJugador2={nombreJugador2}
                     puntaje={puntaje}
+                    puntaje2 = {puntaje2}
+                    setPuntaje2 = {setPuntaje2}
                     setPuntaje={setPuntaje}
                     alTerminar={alTerminar}
                     rondaActual={rondaActual}
                     setRondaActual={setRondaActual}
+                    setTurno = {setTurno}
+                    turno = {turno}
 
                 />
             </div>
@@ -51,7 +74,9 @@ function Inicio() {
     } else if (mostrarFelicitaciones) {
         return (
             <div>
-                <Felicitaciones nombreJugador={nombreJugador} puntaje={puntaje} />
+                <Felicitaciones 
+                nombreJugador={nombreJugador} puntaje={puntaje}
+                nombreJugador2={nombreJugador2} puntaje2={puntaje2} />
             </div>
         );
     }

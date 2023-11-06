@@ -1,0 +1,14 @@
+.boton{
+  font-size: 30px;
+  width:30%;
+}
+.botonJuego{
+  justify-content: center;
+  align-items: center;
+  margin-top:20px;
+
+
+}
+.botonOpcion{
+  font-size: 30px;
+}

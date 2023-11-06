@@ -1,0 +1,40 @@
+{
+    "animales": [
+      {
+        "nombre": "Cat",
+        "ruta": "img/Cat.jpeg"
+      },
+      {
+        "nombre": "Dog",
+        "ruta": "img/Dog.jpeg"
+      },
+      {
+        "nombre": "Cow",
+        "ruta": "img/Cow.jpg"
+      },
+      {
+        "nombre": "Dove",
+        "ruta": "img/Dove.jpeg"
+      },
+      {
+        "nombre": "Giraffe",
+        "ruta": "img/Giraffe.png"
+      },
+      {
+        "nombre": "Lion",
+        "ruta": "img/Lion.jpg"
+      },
+      {
+        "nombre": "Llama",
+        "ruta": "img/Llama.jpeg"
+      },
+      {
+        "nombre": "Monkey",
+        "ruta": "img/Monkey.jpeg"
+      },
+      {
+        "nombre": "Zebra",
+        "ruta": "img/Zebra.png"
+      }
+    ]
+  }

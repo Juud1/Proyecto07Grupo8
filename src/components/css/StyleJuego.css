@@ -1,0 +1,64 @@
+/* Style.css */
+.conteiner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Centrar verticalmente en la pantalla */
+    background-color: #f6d7c4; /* Color de fondo */
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #ff6600; /* Color del título */
+  }
+  
+  .image {
+    width: 200px; /* Tamaño de la imagen */
+    border: 2px solid #ff6600; /* Borde alrededor de la imagen */
+    border-radius: 5px; /* Borde redondeado */
+  }
+  
+  .botonJuego {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .botonOpcion {
+    font-size: 18px;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #ff6600; /* Color de fondo del botón */
+    color: white; /* Color de texto del botón */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .botonOpcion:disabled {
+    background-color: #ccc; /* Color de fondo cuando el botón está deshabilitado */
+    cursor: not-allowed;
+  }
+  
+  .success-message {
+    color: #00a000; /* Color del mensaje de éxito */
+  }
+  
+  .error-message {
+    color: #ff0000; /* Color del mensaje de error */
+  }
+  
+  .next-button {
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #ff6600; /* Color de fondo del botón "Next" */
+    color: white; /* Color de texto del botón "Next" */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  

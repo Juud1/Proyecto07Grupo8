@@ -1,3 +1,4 @@
+// Componente Juego
 import React, { useState, useEffect } from "react";
 
 function Juego({
@@ -12,13 +13,13 @@ function Juego({
   puntaje2,
   setTurno,
   turno,
+  rondasTotales,
+  setRondasTotales,
 }) {
   const [animalObjetivo, setAnimalObjetivo] = useState("");
   const [opciones, setOpciones] = useState([]);
   const [esCorrecto, setEsCorrecto] = useState(null);
-  const [rondasTotales, setRondasTotales] = useState(
-    Math.floor(Math.random() * 6) + 5
-  );
+ 
   const [puedeHacerClic, setPuedeHacerClic] = useState(true);
 
   const obtenerAnimalAleatorio = () => {
@@ -71,20 +72,19 @@ function Juego({
   const siguienteRonda = () => {
     if (rondaActual < rondasTotales) {
       setRondaActual(rondaActual + 1);
-
-      if (turno === 1) {
-        setTurno(2);
-      } else {
-        setTurno(1);
+  
+      if (rondaActual % (rondasTotales / 2) === 0) {
+        // Cambia al siguiente turno solo cuando ambos jugadores hayan jugado la misma cantidad de rondas.
+        setTurno(turno === 1 ? 2 : 1);
       }
-
+  
       setEsCorrecto(null);
       setPuedeHacerClic(true);
       obtenerOpcionesAleatorias();
     } else {
       alTerminar(puntaje, puntaje2);
     }
-  };
+  }
 
   const opcionesDeshabilitadas = esCorrecto !== null;
 

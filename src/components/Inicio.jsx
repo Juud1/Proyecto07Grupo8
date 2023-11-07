@@ -1,3 +1,4 @@
+// Componente Inicio
 import React, { useState } from "react";
 import Juego from "./Juego";
 import Felicitaciones from "./Felicitaciones";
@@ -8,29 +9,56 @@ function Inicio() {
   const [puntaje, setPuntaje] = useState(0);
   const [mostrarFelicitaciones, setMostrarFelicitaciones] = useState(false);
   const [rondaActual, setRondaActual] = useState(1);
-
   const [nombreJugador2, setNombreJugador2] = useState("");
   const [puntaje2, setPuntaje2] = useState(0);
   const [turno, setTurno] = useState(1);
+  const [resultado, setResultado] = useState(""); // Estado para mostrar el resultado
+  const [rondasTotales, setRondasTotales] = useState(0); // Definir el estado de rondasTotales
 
   const manejarClickJugar = (nombre, nombre2) => {
     setNombreJugador(nombre);
     setNombreJugador2(nombre2);
+
+    // Restablece el resultado al comenzar un nuevo juego
+    setResultado("");
+
+    // Establece las rondas totales aleatoriamente en el rango de 5 a 10
+    let rondasTotalesAleatorias = Math.floor(Math.random() * 6) + 5;
+    if (rondasTotalesAleatorias % 2 !== 0){
+      rondasTotalesAleatorias++;
+    }
+    setRondasTotales(rondasTotalesAleatorias);
+
     setMostrarJuego(true);
     setPuntaje2(0);
     setPuntaje(0);
     setMostrarFelicitaciones(false);
   };
 
-  const alTerminar = (puntaje) => {
-    if (turno === 1) {
+  const alTerminar = (puntaje, puntaje2) => {
+  if (rondaActual >= rondasTotales) {
+    // Todas las rondas se han jugado, determinar el resultado
+    if (puntaje > puntaje2) {
       setPuntaje(puntaje);
-    } else {
       setPuntaje2(puntaje2);
+      setResultado(`${nombreJugador} ganó!`);
+    } else if (puntaje2 > puntaje) {
+      setPuntaje(puntaje);
+      setPuntaje2(puntaje2);
+      setResultado(`${nombreJugador2} ganó!`);
+    } else {
+      setPuntaje(puntaje);
+      setPuntaje2(puntaje2);
+      setResultado("Hubo un empate");
     }
     setMostrarJuego(false);
     setMostrarFelicitaciones(true);
-  };
+  } else {
+    setRondaActual(rondaActual + 1);
+  }
+};
+
+
 
   if (!mostrarJuego && !mostrarFelicitaciones) {
     return (
@@ -52,6 +80,7 @@ function Inicio() {
           placeholder="Player 2"
           onChange={(e) => setNombreJugador2(e.target.value)}
         />
+
         <div className="mt-5 fs-5">
           <button className='boton'
             onClick={() => manejarClickJugar(nombreJugador, nombreJugador2)}
@@ -76,6 +105,8 @@ function Inicio() {
           setRondaActual={setRondaActual}
           setTurno={setTurno}
           turno={turno}
+          rondasTotales={rondasTotales}
+          setRondasTotales={setRondasTotales}
         />
       </div>
     );
@@ -87,6 +118,7 @@ function Inicio() {
           puntaje={puntaje}
           nombreJugador2={nombreJugador2}
           puntaje2={puntaje2}
+          resultado={resultado}
         />
       </div>
     );
